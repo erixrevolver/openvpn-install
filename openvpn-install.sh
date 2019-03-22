@@ -342,7 +342,7 @@ function installQuestions () {
 		CC_CIPHER="TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256"
 		DH_TYPE="1" # ECDH
 		DH_CURVE="prime256v1"
-		HMAC_ALG="SHA256"
+		HMAC_ALG="SHA1"
 		TLS_SIG="1" # tls-crypt
 	else
 		echo ""
@@ -523,8 +523,9 @@ function installQuestions () {
 		echo "   1) SHA-256 (recommended)"
 		echo "   2) SHA-384"
 		echo "   3) SHA-512"
-		until [[ $HMAC_ALG_CHOICE =~ ^[1-3]$ ]]; do
-			read -rp "Digest algorithm [1-3]: " -e -i 1 HMAC_ALG_CHOICE
+		echo "   4) SHA-1"
+		until [[ $HMAC_ALG_CHOICE =~ ^[1-4]$ ]]; do
+			read -rp "Digest algorithm [1-4]: " -e -i 1 HMAC_ALG_CHOICE
 		done
 		case $HMAC_ALG_CHOICE in
 			1)
@@ -535,6 +536,9 @@ function installQuestions () {
 			;;
 			3)
 				HMAC_ALG="SHA512"
+			;;
+			4)
+				HMAC_ALG="SHA1"
 			;;
 		esac
 		echo ""
